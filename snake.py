@@ -23,7 +23,7 @@ class Board:
         #turtle.(self.length)
 class Snake:
     def __init__(self) -> None:
-        self.scren = turtle.Screen()
+        self.screen = turtle.Screen()
 
     def __call__(self):
         turtle.color("red")
@@ -31,22 +31,30 @@ class Snake:
         turtle.home()
         turtle.pendown()
 
-    def movment (self):
+    def move(self):
+        turtle.forward(15)
+        
+
+    def go_left(dummy=None):
+        turtle.left(90)
+
+
+    def go_right(dummy=None):
+        turtle.right(90)
+
+
+    def turnig (self):
         i = 0
-        while True:
-            move = self.scren.textinput("kierunek", "give drictory")
-            if move == "w":
-                turtle.forward(15)
-            elif move == "d":
-                turtle.right(90)
-                turtle.forward(15)
-            elif move == "a":
-                turtle.left(90)
-                turtle.forward(15)
-            else:
-                turtle.bye()
-                break
-            
+        
+        while i < 50:
+            self.screen.listen()
+            self.screen.onkey(self.go_left, "Left")
+            self.screen.onkey(self.go_right, "Right")   
+            self.screen.ontimer(self.move(),250)
+            i += 1
+        
+
+          
 
 
 
@@ -55,4 +63,11 @@ board = Board(400,90,'blue')
 board()
 palyer = Snake()
 palyer()
-palyer.movment()
+palyer.turnig()
+
+
+
+
+
+
+
