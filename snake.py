@@ -30,6 +30,7 @@ class Snake:
     def __init__(self) -> None:
         self.screen = turtle.Screen()
         self.fruit =turtle.Turtle()
+        self.coordinates = [[1,1],[1,1]]
         self.direction_of_t2 = ["sleep"] *5
         self.direction_of_t1 =["forward"] 
         self.screen.tracer()
@@ -51,7 +52,7 @@ class Snake:
         ycor = random.randrange(-200,200, 10)
         self.fruit.setpos(xcor,ycor)
         self.fruit.pendown()
-        self.fruit.color("yellow")
+        self.fruit.color("orange")
        
         
         
@@ -59,8 +60,9 @@ class Snake:
     def move(self):
         t1.speed(1)
         t1.forward(10)
-        #print("t1 forward")
+        self.coordinates.append([t1.xcor(),t1.ycor()])
         self.direction_of_t2.append("forward") 
+        self.ouroboros()
         if t1.ycor() >= 200 or t1.ycor() <= -200 or t1.xcor() >= 200 or t1.xcor() <= -200:
             print("You lose")
             turtle.bye()
@@ -69,7 +71,17 @@ class Snake:
             self.direction_of_t2.append("sleep")
             self.fruit.color("white")
             
-        
+    def ouroboros(self):
+        waiting = [ sleep for sleep in self.direction_of_t2 if sleep == "sleep"]
+        #print(waiting)
+        self.coordinate = self.coordinates[- len(waiting):]
+        self.cords = self.coordinate.pop()
+        for cords in self.coordinate:
+            if (t1.ycor()) >= (cords[1])-1 and (t1.ycor()) <= (cords[1])+ 1 and t1.xcor() >= (cords[0]) -1 and (t1.xcor()) <= (cords[0]) + 1 :
+                print("you lose")
+                turtle.bye()
+        self.coordinate.append(self.cords)
+       
         
 
     def go_left(self, dummy=None):
