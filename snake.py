@@ -23,20 +23,7 @@ class Board:
         for _ in range (4):
             t2.forward(self.length)
             t2.left(self.wide)
-
         time.sleep(1)
-        #turtle.(self.length)
-class Snake:
-    def __init__(self) -> None:
-        self.screen = turtle.Screen()
-        self.fruit =turtle.Turtle()
-        self.coordinates = [[1,1],[1,1]]
-        self.direction_of_t2 = ["sleep"] *5
-        self.direction_of_t1 =["forward"] 
-        self.screen.tracer()
-        t1.shape("triangle")
-
-    def __call__(self):
         t1.color("red")
         t2.color("white")
         t2.penup()
@@ -44,6 +31,18 @@ class Snake:
         
         t2.pendown()
     
+class Snake:
+    def __init__(self) -> None:
+        self.screen = turtle.Screen()
+        self.fruit =turtle.Turtle()
+        self.fruit.color("white")
+        self.coordinates = [[1,1],[1,1]]
+        self.direction_of_t2 = ["sleep"] *5
+        self.direction_of_t1 =["forward"] 
+        self.screen.tracer()
+        t1.shape("triangle")
+
+        
     def treat(self):
         self.fruit.shape("circle")
         self.fruit.color("white")
@@ -73,7 +72,6 @@ class Snake:
             
     def ouroboros(self):
         waiting = [ sleep for sleep in self.direction_of_t2 if sleep == "sleep"]
-        #print(waiting)
         self.coordinate = self.coordinates[- len(waiting):]
         self.cords = self.coordinate.pop()
         for cords in self.coordinate:
@@ -82,43 +80,49 @@ class Snake:
                 turtle.bye()
         self.coordinate.append(self.cords)
        
-        
-
-    def go_left(self, dummy=None):
-        t1.left(90)
-        #print("t1 - left")
-        self.direction_of_t2.append("left") 
-
-
-    def go_right(self, dummy=None):
-        t1.right(90)
-        #print("t1 right")
-        self.direction_of_t2.append("right") 
-
-
+        #adding into list next movment
     def left(self):
         del self.direction_of_t1[-1]
-        
         self.direction_of_t1.append("left")
-        
+        print("click into left")
+        print(self.direction_of_t1)
     
     def right(self):
         del self.direction_of_t1[-1]
-        
         self.direction_of_t1.append("right")
+        print("click into right")
+        print(self.direction_of_t1)
     
     def forward(self):
         self.direction_of_t1.append("forward")
-        
+
+
+
+
+
+    #moving Function
+    def go_left(self, dummy=None):
+        t1.left(90)
+        self.direction_of_t2.append("left") 
+        print("going to the left")
+
+    def go_right(self, dummy=None):
+        t1.right(90)
+        self.direction_of_t2.append("right")
+        print("going to the right")
+
+
+    
+
+
+
 
     def turnig (self):
         i = 0
          
         while i < 1:
               
-              for action_of_t1, action_of_t2 in zip(self.direction_of_t1 ,self.direction_of_t2) :
-                #print ("t1",action_of_t1)
-                #print ("t2",action_of_t2)
+            for action_of_t1, action_of_t2 in zip(self.direction_of_t1 ,self.direction_of_t2) :
 
                 if len(self.direction_of_t1) % 40 == 0:
                     self.treat()
@@ -130,18 +134,22 @@ class Snake:
                     t2.forward(10)
                 elif action_of_t2 == "sleep":
                     pass
+
                 self.screen.listen()
                 self.screen.onkey(self.left, "Left")
                 self.screen.onkey(self.right, "Right")
                 
                 self.screen.ontimer(self.forward(),250)
-
                 if action_of_t1 == "forward":
                     self.screen.ontimer(self.move(),250)
                 elif action_of_t1 == "left":
                     self.go_left()
                 elif action_of_t1 == "right":
-                    self.go_right()
+                      self.go_right()
+
+
+              
+                  
                 
                 i +=1 
               
@@ -164,7 +172,7 @@ class Snake:
 board = Board(400,90,'blue')
 board()
 palyer = Snake()
-palyer()
+
 palyer.turnig()
 
 
